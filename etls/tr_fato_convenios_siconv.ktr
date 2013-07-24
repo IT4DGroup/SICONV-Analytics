@@ -6,7 +6,7 @@
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
-    <directory>&#47;SICONV</directory>
+    <directory>&#47;</directory>
     <parameters>
     </parameters>
     <log>
@@ -63,7 +63,7 @@
   <created_user>-</created_user>
   <created_date>2013&#47;07&#47;24 12:00:43.453</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2013&#47;07&#47;24 13:11:54.965</modified_date>
+  <modified_date>2013&#47;07&#47;24 18:06:00.651</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -111,216 +111,30 @@
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>siconv-dw</name>
+    <server>${hostname}</server>
+    <type>POSTGRESQL</type>
+    <access>Native</access>
+    <database>${database}</database>
+    <port>${port}</port>
+    <username>${user}</username>
+    <password>${password}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${port}</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <order>
-  <hop> <from>TIN - STG_CONVENIOS_SINCOV</from><to>DBLKP - DIM_SITUACAO</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_SITUACAO</from><to>DBLKP - DIM_ESTADO</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_ESTADO</from><to>DBLKP - DIM_MUNICIPIO</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_MUNICIPIO</from><to>DBLKP - DIM_GEOGRAFIA</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_GEOGRAFIA</from><to>DBLKP - CONCEDENTE</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - CONCEDENTE</from><to>DBLKP - DIM_CONVENENTE</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_CONVENENTE</from><to>DBLKP - DIM_ORGAO_SUPERIOR</to><enabled>Y</enabled> </hop>  <hop> <from>Organiza Campos</from><to>TOU - FATO_CONVENIOS_SICONV</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_ORGAO_SUPERIOR</from><to>DBLKP - DIM_DT_PUBLICACAO</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_DT_PUBLICACAO</from><to>DBLKP - DIM_DT_ULT_LIBERACAO</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_DT_ULT_LIBERACAO</from><to>DBLKP - DIM_DT_FIM_VIGENCIA</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_DT_FIM_VIGENCIA</from><to>DBLKP - DIM_DT_INICIO_VIGENCIA</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_DT_INICIO_VIGENCIA</from><to>Organiza Campos</to><enabled>Y</enabled> </hop>  </order>
-  <step>
-    <name>TIN - STG_CONVENIOS_SINCOV</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>siconv</connection>
-    <sql>SELECT
-  numero_do_convenio
-, estado
-, codigo_municipio
-, situacao
-, numero_original
-, objeto_do_convenio
-, codigo_orgao_superior
-, codigo_concedente
-, codigo_convenente
-, valor_convenio
-, valor_liberado
-, publicacao
-, inicio_vigencia
-, fim_vigencia
-, valor_contrapartida
-, data_ultima_liberacao
-, valor_ultima_liberacao
-FROM dw.stg_convenios_sincov
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>95</xloc>
-      <yloc>46</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>DBLKP - DIM_SITUACAO</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>siconv</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>dw</schema>
-      <table>dim_situacao</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>situacao</name>
-        <field>situacao</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>sk_situacao</name>
-        <rename>sk_situacao</rename>
-        <default>0</default>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>292</xloc>
-      <yloc>46</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>DBLKP - DIM_ESTADO</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>siconv</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>dw</schema>
-      <table>dim_estado</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>estado</name>
-        <field>estado</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>sk_estado</name>
-        <rename>sk_estado</rename>
-        <default>0</default>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>452</xloc>
-      <yloc>52</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>DBLKP - DIM_MUNICIPIO</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>siconv</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>dw</schema>
-      <table>dim_municipio</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>codigo_municipio</name>
-        <field>cod_municipio</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>sk_municipio</name>
-        <rename>sk_municipio</rename>
-        <default>0</default>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>606</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>DBLKP - DIM_GEOGRAFIA</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>siconv</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>dw</schema>
-      <table>dim_geografia</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>codigo_municipio</name>
-        <field>cod_municipio</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>sk_geografia</name>
-        <rename>sk_geografia</rename>
-        <default>0</default>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>599</xloc>
-      <yloc>151</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
+  <hop> <from>DBLKP - DIM_SITUACAO</from><to>DBLKP - DIM_ESTADO</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_ESTADO</from><to>DBLKP - DIM_MUNICIPIO</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_MUNICIPIO</from><to>DBLKP - DIM_GEOGRAFIA</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_GEOGRAFIA</from><to>DBLKP - CONCEDENTE</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - CONCEDENTE</from><to>DBLKP - DIM_CONVENENTE</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_CONVENENTE</from><to>DBLKP - DIM_ORGAO_SUPERIOR</to><enabled>Y</enabled> </hop>  <hop> <from>Organiza Campos</from><to>TOU - FATO_CONVENIOS_SICONV</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_ORGAO_SUPERIOR</from><to>DBLKP - DIM_DT_PUBLICACAO</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_DT_PUBLICACAO</from><to>DBLKP - DIM_DT_ULT_LIBERACAO</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_DT_ULT_LIBERACAO</from><to>DBLKP - DIM_DT_FIM_VIGENCIA</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_DT_FIM_VIGENCIA</from><to>DBLKP - DIM_DT_INICIO_VIGENCIA</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_DT_INICIO_VIGENCIA</from><to>Organiza Campos</to><enabled>Y</enabled> </hop>  <hop> <from>TIN - STG_CONVENIOS_SINCOV</from><to>Calcula Tempo de Contrato</to><enabled>Y</enabled> </hop>  <hop> <from>Calcula Tempo de Contrato</from><to>DBLKP - DIM_SITUACAO</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>DBLKP - CONCEDENTE</name>
     <type>DBLookup</type>
@@ -332,8 +146,8 @@ FROM dw.stg_convenios_sincov
            <schema_name/>
            </partitioning>
     <connection>siconv</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
     <lookup>
       <schema>dw</schema>
@@ -373,8 +187,8 @@ FROM dw.stg_convenios_sincov
            <schema_name/>
            </partitioning>
     <connection>siconv</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
     <lookup>
       <schema>dw</schema>
@@ -404,6 +218,293 @@ FROM dw.stg_convenios_sincov
     </step>
 
   <step>
+    <name>DBLKP - DIM_DT_FIM_VIGENCIA</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>siconv</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>dw</schema>
+      <table>dim_tempo</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>fim_vigencia</name>
+        <field>data</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>sk_tempo</name>
+        <rename>sk_dt_fim_vigencia</rename>
+        <default>0</default>
+        <type>Number</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>415</xloc>
+      <yloc>299</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DBLKP - DIM_DT_INICIO_VIGENCIA</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>siconv</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>dw</schema>
+      <table>dim_tempo</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>inicio_vigencia</name>
+        <field>data</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>sk_tempo</name>
+        <rename>sk_dt_inicio_vigencia</rename>
+        <default>0</default>
+        <type>Number</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>630</xloc>
+      <yloc>317</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DBLKP - DIM_DT_PUBLICACAO</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>siconv</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>dw</schema>
+      <table>dim_tempo</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>publicacao</name>
+        <field>data</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>sk_tempo</name>
+        <rename>sk_dt_publicacao</rename>
+        <default>0</default>
+        <type>Number</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>99</xloc>
+      <yloc>322</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DBLKP - DIM_DT_ULT_LIBERACAO</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>siconv</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>dw</schema>
+      <table>dim_tempo</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>data_ultima_liberacao</name>
+        <field>data</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>sk_tempo</name>
+        <rename>sk_dt_ultima_liberacao</rename>
+        <default>0</default>
+        <type>Number</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>239</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DBLKP - DIM_ESTADO</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>siconv</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>dw</schema>
+      <table>dim_estado</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>estado</name>
+        <field>estado</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>sk_estado</name>
+        <rename>sk_estado</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>521</xloc>
+      <yloc>52</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DBLKP - DIM_GEOGRAFIA</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>siconv</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>dw</schema>
+      <table>dim_geografia</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>codigo_municipio</name>
+        <field>cod_municipio</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>sk_geografia</name>
+        <rename>sk_geografia</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>599</xloc>
+      <yloc>151</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DBLKP - DIM_MUNICIPIO</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>siconv</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>dw</schema>
+      <table>dim_municipio</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>codigo_municipio</name>
+        <field>cod_municipio</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>sk_municipio</name>
+        <rename>sk_municipio</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>758</xloc>
+      <yloc>50</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>DBLKP - DIM_ORGAO_SUPERIOR</name>
     <type>DBLookup</type>
     <description/>
@@ -414,8 +515,8 @@ FROM dw.stg_convenios_sincov
            <schema_name/>
            </partitioning>
     <connection>siconv</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
     <lookup>
       <schema>dw</schema>
@@ -440,6 +541,47 @@ FROM dw.stg_convenios_sincov
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>86</xloc>
       <yloc>207</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DBLKP - DIM_SITUACAO</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>siconv</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>dw</schema>
+      <table>dim_situacao</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>situacao</name>
+        <field>situacao</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>sk_situacao</name>
+        <rename>sk_situacao</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>354</xloc>
+      <yloc>45</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -526,11 +668,59 @@ FROM dw.stg_convenios_sincov
         <rename>m_valor_ult_liberacao</rename>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>tempo_contrato_dias</name>
+        <rename>m_tempo_contrato_dias</rename>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>714</xloc>
       <yloc>236</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>TIN - STG_CONVENIOS_SINCOV</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>siconv</connection>
+    <sql>SELECT
+  numero_do_convenio
+, estado
+, codigo_municipio
+, situacao
+, numero_original
+, objeto_do_convenio
+, codigo_orgao_superior
+, codigo_concedente
+, codigo_convenente
+, valor_convenio
+, valor_liberado
+, publicacao
+, inicio_vigencia
+, fim_vigencia
+, valor_contrapartida
+, data_ultima_liberacao
+, valor_ultima_liberacao
+FROM dw.stg_convenios_sincov
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>72</xloc>
+      <yloc>35</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -573,8 +763,8 @@ FROM dw.stg_convenios_sincov
     </step>
 
   <step>
-    <name>DBLKP - DIM_DT_PUBLICACAO</name>
-    <type>DBLookup</type>
+    <name>Calcula Tempo de Contrato</name>
+    <type>Calculator</type>
     <description/>
     <distribute>Y</distribute>
     <copies>1</copies>
@@ -582,156 +772,24 @@ FROM dw.stg_convenios_sincov
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>siconv</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>dw</schema>
-      <table>dim_tempo</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>publicacao</name>
-        <field>data</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>sk_tempo</name>
-        <rename>sk_dt_publicacao</rename>
-        <default>0</default>
-        <type>Number</type>
-      </value>
-    </lookup>
+       <calculation><field_name>tempo_contrato_dias</field_name>
+<calc_type>DATE_DIFF</calc_type>
+<field_a>fim_vigencia</field_a>
+<field_b>inicio_vigencia</field_b>
+<field_c/>
+<value_type>Integer</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>99</xloc>
-      <yloc>322</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>DBLKP - DIM_DT_ULT_LIBERACAO</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>siconv</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>dw</schema>
-      <table>dim_tempo</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>data_ultima_liberacao</name>
-        <field>data</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>sk_tempo</name>
-        <rename>sk_dt_ultima_liberacao</rename>
-        <default>0</default>
-        <type>Number</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>274</xloc>
-      <yloc>265</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>DBLKP - DIM_DT_FIM_VIGENCIA</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>siconv</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>dw</schema>
-      <table>dim_tempo</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>fim_vigencia</name>
-        <field>data</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>sk_tempo</name>
-        <rename>sk_dt_fim_vigencia</rename>
-        <default>0</default>
-        <type>Number</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>429</xloc>
-      <yloc>287</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>DBLKP - DIM_DT_INICIO_VIGENCIA</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>siconv</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>dw</schema>
-      <table>dim_tempo</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>inicio_vigencia</name>
-        <field>data</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>sk_tempo</name>
-        <rename>sk_dt_inicio_vigencia</rename>
-        <default>0</default>
-        <type>Number</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>630</xloc>
-      <yloc>317</yloc>
+      <xloc>219</xloc>
+      <yloc>43</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

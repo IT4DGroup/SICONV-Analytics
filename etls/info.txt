@@ -1,0 +1,28 @@
+Project Info
+
+kettle.properties
+
+ipserver=localhost
+etl_path=/Users/caiomsouza/git/it4dgroup/SICONV-Analytics/etls
+files=/Users/caiomsouza/git/it4dgroup/SICONV-Analytics/etls/files
+hostname=localhost
+database=siconv
+port=5432
+user=seu_usuario
+password=sua_senha_do_banco
+
+Run a Job without write the log in a file
+./kitchen.sh -file=/Users/caiomsouza/git/it4dgroup/SICONV-Analytics/etls/job_dm_convenios_siconv.kjb -level=Basic
+
+
+Run a Job writing the log in a file
+./kitchen.sh -file=/Users/caiomsouza/git/it4dgroup/SICONV-Analytics/etls/job_dm_convenios_siconv.kjb -level=Basic >> /Users/caiomsouza/git/it4dgroup/SICONV-Analytics/job.log  
+
+Git commands:
+
+git add SICONV-Analytics/
+
+git commit -m "SICONV v1.1 ETLs - Data Mart Convenios"
+
+git push -u origin master
+  

@@ -1,3 +1,29 @@
+CREATE TABLE ods.ods_siconv
+(
+  Numero_do_convenio BIGINT
+, Estado TEXT
+, Codigo_Municipio BIGINT
+, Municipio TEXT
+, Situacao TEXT
+, Numero_Original TEXT
+, Objeto_do_Convenio TEXT
+, Codigo_Orgao_Superior BIGINT
+, Orgao_Superior TEXT
+, Codigo_Concedente TEXT
+, Concedente TEXT
+, Codigo_Convenente TEXT
+, Convenente TEXT
+, Valor_Convenio BIGINT
+, Valor_Liberado BIGINT
+, Publicacao TIMESTAMP
+, Inicio_vigencia TIMESTAMP
+, Fim_vigencia TIMESTAMP
+, Valor_contrapartida BIGINT
+, Data_ultima_liberacao TIMESTAMP
+, Valor_ultima_liberacao BIGINT
+)
+;
+
 
 
 CREATE TABLE dw.dim_estado
@@ -118,21 +144,27 @@ CREATE TABLE dw.dim_concedente
 , version INTEGER
 , date_from TIMESTAMP
 , date_to TIMESTAMP
-, codigo_concedente BIGINT
+, codigo_concedente TEXT
 , concedente TEXT
+, CONSTRAINT PK_CONCEDENTE PRIMARY KEY (sk_concedente)
 )
-;CREATE INDEX idx_dim_concedente_lookup
+;
+
+CREATE INDEX idx_dim_concedente_lookup
  ON dw.dim_concedente
 ( 
   codigo_concedente
+, concedente
 )
 ;
+
 CREATE INDEX idx_dim_concedente_tk
  ON dw.dim_concedente
 ( 
   sk_concedente
 )
 ;
+
 
 CREATE TABLE dw.dim_convenente
 (
@@ -142,11 +174,13 @@ CREATE TABLE dw.dim_convenente
 , date_to TIMESTAMP
 , codigo_convenente TEXT
 , convenente TEXT
+, CONSTRAINT PK_CONVENENTE PRIMARY KEY (sk_convenente)
 )
 ;CREATE INDEX idx_dim_convenente_lookup
  ON dw.dim_convenente
 ( 
   codigo_convenente
+, convenente
 )
 ;
 CREATE INDEX idx_dim_convenente_tk
@@ -155,6 +189,28 @@ CREATE INDEX idx_dim_convenente_tk
   sk_convenente
 )
 ;
+
+CREATE TABLE dw.dim_ano
+(
+  sk_ano BIGSERIAL
+, version INTEGER
+, date_from TIMESTAMP
+, date_to TIMESTAMP
+, ano4 TEXT
+)
+;CREATE INDEX idx_dim_ano_lookup
+ ON dw.dim_ano
+( 
+  ano4
+)
+;
+CREATE INDEX idx_dim_ano_tk
+ ON dw.dim_ano
+( 
+  sk_ano
+)
+;
+
 
 CREATE TABLE dw.stg_convenios_sincov
 (
@@ -165,7 +221,7 @@ CREATE TABLE dw.stg_convenios_sincov
 , numero_original TEXT
 , objeto_do_convenio TEXT
 , codigo_orgao_superior BIGINT
-, codigo_concedente BIGINT
+, codigo_concedente TEXT
 , codigo_convenente TEXT
 , valor_convenio BIGINT
 , valor_liberado BIGINT
@@ -177,6 +233,7 @@ CREATE TABLE dw.stg_convenios_sincov
 , valor_ultima_liberacao BIGINT
 )
 ;
+
 
 CREATE TABLE dw.fato_convenios_siconv
 (

@@ -57,60 +57,17 @@
     <partitionschemas>
     </partitionschemas>
     <slaveservers>
+         <slaveserver><name>teste</name><hostname>localhost</hostname><port>8081</port><webAppName/><username>cluster</username><password>Encrypted 2be98afc86aa7f2e4cb1aa265cd86aac8</password><proxy_hostname/><proxy_port/><non_proxy_hosts/><master>Y</master></slaveserver>
     </slaveservers>
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
   <created_date>2013&#47;07&#47;24 12:00:43.453</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2013&#47;07&#47;24 18:06:00.651</modified_date>
+  <modified_date>2013&#47;08&#47;07 13:03:04.253</modified_date>
   </info>
   <notepads>
   </notepads>
-  <connection>
-    <name>cgee</name>
-    <server>${hostname}</server>
-    <type>POSTGRESQL</type>
-    <access>Native</access>
-    <database>${database}</database>
-    <port>${port}</port>
-    <username>${user}</username>
-    <password>${password}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>${port}</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>siconv</name>
-    <server>localhost</server>
-    <type>POSTGRESQL</type>
-    <access>Native</access>
-    <database>siconv</database>
-    <port>5432</port>
-    <username>postgres</username>
-    <password>Encrypted 2be98afc86aca8797bf18a0778cc2ff82</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>5432</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
   <connection>
     <name>siconv-dw</name>
     <server>${hostname}</server>
@@ -136,6 +93,38 @@
   <order>
   <hop> <from>DBLKP - DIM_SITUACAO</from><to>DBLKP - DIM_ESTADO</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_ESTADO</from><to>DBLKP - DIM_MUNICIPIO</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_MUNICIPIO</from><to>DBLKP - DIM_GEOGRAFIA</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_GEOGRAFIA</from><to>DBLKP - CONCEDENTE</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - CONCEDENTE</from><to>DBLKP - DIM_CONVENENTE</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_CONVENENTE</from><to>DBLKP - DIM_ORGAO_SUPERIOR</to><enabled>Y</enabled> </hop>  <hop> <from>Organiza Campos</from><to>TOU - FATO_CONVENIOS_SICONV</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_ORGAO_SUPERIOR</from><to>DBLKP - DIM_DT_PUBLICACAO</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_DT_PUBLICACAO</from><to>DBLKP - DIM_DT_ULT_LIBERACAO</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_DT_ULT_LIBERACAO</from><to>DBLKP - DIM_DT_FIM_VIGENCIA</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_DT_FIM_VIGENCIA</from><to>DBLKP - DIM_DT_INICIO_VIGENCIA</to><enabled>Y</enabled> </hop>  <hop> <from>DBLKP - DIM_DT_INICIO_VIGENCIA</from><to>Organiza Campos</to><enabled>Y</enabled> </hop>  <hop> <from>TIN - STG_CONVENIOS_SINCOV</from><to>Calcula Tempo de Contrato</to><enabled>Y</enabled> </hop>  <hop> <from>Calcula Tempo de Contrato</from><to>DBLKP - DIM_SITUACAO</to><enabled>Y</enabled> </hop>  </order>
   <step>
+    <name>Calcula Tempo de Contrato</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <calculation><field_name>tempo_contrato_dias</field_name>
+<calc_type>DATE_DIFF</calc_type>
+<field_a>fim_vigencia</field_a>
+<field_b>inicio_vigencia</field_b>
+<field_c/>
+<value_type>Integer</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>219</xloc>
+      <yloc>43</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>DBLKP - CONCEDENTE</name>
     <type>DBLookup</type>
     <description/>
@@ -145,7 +134,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>siconv</connection>
+    <connection>siconv-dw</connection>
     <cache>Y</cache>
     <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
@@ -186,7 +175,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>siconv</connection>
+    <connection>siconv-dw</connection>
     <cache>Y</cache>
     <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
@@ -227,7 +216,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>siconv</connection>
+    <connection>siconv-dw</connection>
     <cache>Y</cache>
     <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
@@ -268,7 +257,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>siconv</connection>
+    <connection>siconv-dw</connection>
     <cache>Y</cache>
     <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
@@ -309,7 +298,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>siconv</connection>
+    <connection>siconv-dw</connection>
     <cache>Y</cache>
     <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
@@ -350,7 +339,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>siconv</connection>
+    <connection>siconv-dw</connection>
     <cache>Y</cache>
     <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
@@ -391,7 +380,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>siconv</connection>
+    <connection>siconv-dw</connection>
     <cache>Y</cache>
     <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
@@ -432,7 +421,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>siconv</connection>
+    <connection>siconv-dw</connection>
     <cache>Y</cache>
     <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
@@ -473,7 +462,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>siconv</connection>
+    <connection>siconv-dw</connection>
     <cache>Y</cache>
     <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
@@ -514,7 +503,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>siconv</connection>
+    <connection>siconv-dw</connection>
     <cache>Y</cache>
     <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
@@ -555,7 +544,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>siconv</connection>
+    <connection>siconv-dw</connection>
     <cache>Y</cache>
     <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
@@ -691,7 +680,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>siconv</connection>
+    <connection>siconv-dw</connection>
     <sql>SELECT
   numero_do_convenio
 , estado
@@ -735,7 +724,7 @@ FROM dw.stg_convenios_sincov
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>siconv</connection>
+    <connection>siconv-dw</connection>
     <schema>dw</schema>
     <table>fato_convenios_siconv</table>
     <commit>1000</commit>
@@ -758,38 +747,6 @@ FROM dw.stg_convenios_sincov
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>852</xloc>
       <yloc>299</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Calcula Tempo de Contrato</name>
-    <type>Calculator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-       <calculation><field_name>tempo_contrato_dias</field_name>
-<calc_type>DATE_DIFF</calc_type>
-<field_a>fim_vigencia</field_a>
-<field_b>inicio_vigencia</field_b>
-<field_c/>
-<value_type>Integer</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>219</xloc>
-      <yloc>43</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

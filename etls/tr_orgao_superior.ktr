@@ -6,7 +6,7 @@
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
-    <directory>&#47;SICONV</directory>
+    <directory>&#47;</directory>
     <parameters>
     </parameters>
     <log>
@@ -57,18 +57,19 @@
     <partitionschemas>
     </partitionschemas>
     <slaveservers>
+         <slaveserver><name>teste</name><hostname>localhost</hostname><port>8081</port><webAppName/><username>cluster</username><password>Encrypted 2be98afc86aa7f2e4cb1aa265cd86aac8</password><proxy_hostname/><proxy_port/><non_proxy_hosts/><master>Y</master></slaveserver>
     </slaveservers>
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
   <created_date>2013&#47;07&#47;24 11:34:06.498</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2013&#47;07&#47;24 11:40:44.656</modified_date>
+  <modified_date>2013&#47;08&#47;07 12:52:33.667</modified_date>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>cgee</name>
+    <name>siconv-dw</name>
     <server>${hostname}</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
@@ -89,28 +90,6 @@
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
-  <connection>
-    <name>siconv</name>
-    <server>localhost</server>
-    <type>POSTGRESQL</type>
-    <access>Native</access>
-    <database>siconv</database>
-    <port>5432</port>
-    <username>postgres</username>
-    <password>Encrypted 2be98afc86aca8797bf18a0778cc2ff82</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>5432</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
   <order>
   <hop> <from>TIN - ORGAO SUPERIOR</from><to>DIMLKP - ORGAO SUPERIOR</to><enabled>Y</enabled> </hop>  </order>
   <step>
@@ -125,7 +104,7 @@
            </partitioning>
       <schema>dw</schema>
       <table>dim_orgao_superior</table>
-      <connection>siconv</connection>
+      <connection>siconv-dw</connection>
       <commit>100</commit>
       <update>Y</update>
       <fields>
@@ -177,7 +156,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>cgee</connection>
+    <connection>siconv-dw</connection>
     <sql>SELECT
 distinct codigo_orgao_superior
 , orgao_superior

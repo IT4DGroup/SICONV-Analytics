@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>transf_dim_tempo_brazil</name>
+    <name>tr_dim_tempo_brazil</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -58,6 +57,7 @@
     <partitionschemas>
     </partitionschemas>
     <slaveservers>
+         <slaveserver><name>teste</name><hostname>localhost</hostname><port>8081</port><webAppName/><username>cluster</username><password>Encrypted 2be98afc86aa7f2e4cb1aa265cd86aac8</password><proxy_hostname/><proxy_port/><non_proxy_hosts/><master>Y</master></slaveserver>
          <slaveserver><name>servidor_etl_it4biz</name><hostname>192.168.10.71</hostname><port>8188</port><webAppName/><username>cluster</username><password>Encrypted 2be98afc86aa7f2e4cb1aa265cd86aac8</password><proxy_hostname/><proxy_port/><non_proxy_hosts/><master>Y</master></slaveserver>
     </slaveservers>
     <clusterschemas>
@@ -65,7 +65,7 @@
   <created_user/>
   <created_date>2012&#47;07&#47;24 17:49:29.282</created_date>
   <modified_user>admin</modified_user>
-  <modified_date>2012&#47;09&#47;28 10:54:48.635</modified_date>
+  <modified_date>2013&#47;08&#47;07 12:51:24.513</modified_date>
   </info>
   <notepads>
     <notepad>
@@ -101,37 +101,14 @@ blog.professorcoruja.com</note>
     </notepad>
   </notepads>
   <connection>
-    <name>dw_dados_gov_br</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>dw_dados_gov_br</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aca8797bf18a0778cc2ff82</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>dw_unioeste</name>
-    <server>localhost</server>
+    <name>siconv-dw</name>
+    <server>${hostname}</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>dw_unioeste</database>
-    <port>5432</port>
-    <username>postgres</username>
-    <password>Encrypted 2be98afc86aca8797bf18a0778cc2ff82</password>
+    <database>${database}</database>
+    <port>${port}</port>
+    <username>${user}</username>
+    <password>${password}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -139,29 +116,7 @@ blog.professorcoruja.com</note>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>5432</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>origem_erp_curso</name>
-    <server>localhost</server>
-    <type>POSTGRESQL</type>
-    <access>Native</access>
-    <database>erp_curso</database>
-    <port>5432</port>
-    <username>postgres</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>5432</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>${port}</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -550,7 +505,7 @@ var data_numerica           = date_format_number(day_in_month)+&apos;&apos;+mont
         <currency/>
         <decimal/>
         <group/>
-        <nullif>2008-01-01</nullif>
+        <nullif>2000-01-01</nullif>
         <length>-1</length>
         <precision>-1</precision>
       </field>
@@ -596,7 +551,7 @@ var data_numerica           = date_format_number(day_in_month)+&apos;&apos;+mont
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection/>
+    <connection>siconv-dw</connection>
     <commit>100</commit>
     <update_bypassed>N</update_bypassed>
     <lookup>

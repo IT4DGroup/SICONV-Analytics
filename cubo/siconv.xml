@@ -108,6 +108,8 @@
     </Measure>
     <Measure name="Valor Liberado" column="m_valor_liberado" datatype="Numeric" formatString="###,###,###" aggregator="sum" caption="Valor Liberado" visible="true">
     </Measure>
+    <Measure name="Quantidade de Convenios" column="sk_concedente" datatype="Integer" formatString="#" aggregator="count" visible="true">
+    </Measure>
     <CalculatedMember name="Cor dias Contrato" formula="([Measures].[Dias Contrato]+0)" dimension="Measures" visible="false">
       <CalculatedMemberProperty name="FORMAT_STRING" expression="Iif(([Measures].[Dias Contrato]-0) &#60;=30, &#39;|#,###|style=green&#39;, &#39;|#,###|style=red&#39;)">
       </CalculatedMemberProperty>

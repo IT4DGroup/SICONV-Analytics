@@ -1,0 +1,116 @@
+<Schema name="SICONV" measuresCaption="M&#233;tricas">
+  <Cube name="Convenios" visible="true" cache="true" enabled="true">
+    <Table name="fato_convenios_siconv" schema="dw">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" foreignKey="sk_convenente" highCardinality="false" name="Convenente">
+      <Hierarchy name="Convenente" visible="true" hasAll="true" allMemberName="Todos" primaryKey="sk_convenente">
+        <Table name="dim_convenente" schema="dw">
+        </Table>
+        <Level name="Conventente" visible="true" column="convenente" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="sk_concedente" highCardinality="false" name="Concedente">
+      <Hierarchy name="Concedente" visible="true" hasAll="true" allMemberName="Todos" primaryKey="sk_concedente">
+        <Table name="dim_concedente" schema="dw">
+        </Table>
+        <Level name="Concedente" visible="true" column="concedente" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="sk_orgao_superior" highCardinality="false" name="Orgao Superior" caption="&#211;rg&#227;o Superior">
+      <Hierarchy name="Orgao Superior" visible="true" hasAll="true" allMemberName="Todos" primaryKey="sk_orgao_superior" caption="&#211;rg&#227;o Superior">
+        <Table name="dim_orgao_superior" schema="dw">
+        </Table>
+        <Level name="Orgao Superior" visible="true" column="orgao_superior" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="&#211;rg&#227;o Superior">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="sk_estado" highCardinality="false" name="Estado">
+      <Hierarchy name="Estado" visible="true" hasAll="true" allMemberName="Todos" primaryKey="sk_estado">
+        <Table name="dim_estado" schema="dw">
+        </Table>
+        <Level name="Estado" visible="true" column="estado" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="sk_municipio" highCardinality="false" name="Municipio" caption="Munic&#237;pio">
+      <Hierarchy name="Municipio" visible="true" hasAll="true" allMemberName="Todos" primaryKey="sk_municipio">
+        <Table name="dim_municipio" schema="dw">
+        </Table>
+        <Level name="Municipio" visible="true" column="desc_municipio" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Munic&#237;pio">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="sk_dt_inicio_vigencia" highCardinality="false" name="Data Inicio Vigencia" caption="Data In&#237;cio Vig&#234;ncia">
+      <Hierarchy name="Data Inicio Vigencia" visible="true" hasAll="true" allMemberName="Todos" primaryKey="sk_tempo" caption="Data In&#237;cio Vig&#234;ncia">
+        <Table name="dim_tempo" schema="dw" alias="dim_inicio_vigencia">
+        </Table>
+        <Level name="Ano" visible="true" column="ano4" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Mes" visible="true" column="nome_mes" ordinalColumn="mes_numero" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="M&#234;s">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="sk_dt_fim_vigencia" highCardinality="false" name="Data Fim Vigencia" caption="Data Fim Vig&#234;ncia">
+      <Hierarchy name="Data Fim Vigencia" visible="true" hasAll="true" allMemberName="Todos" primaryKey="sk_tempo" caption="Data Fim Vig&#234;ncia">
+        <Table name="dim_tempo" schema="dw" alias="dim_fim_vigencia">
+        </Table>
+        <Level name="Ano" visible="true" column="ano4" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Mes" visible="true" column="nome_mes" ordinalColumn="mes_numero" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="M&#234;s">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="sk_dt_publicacao" highCardinality="false" name="Data Publicacao" caption="Data Publica&#231;&#227;o">
+      <Hierarchy name="Data Publicacao" visible="true" hasAll="true" allMemberName="Todos" primaryKey="sk_tempo" caption="Data Publica&#231;&#227;o">
+        <Table name="dim_tempo" schema="dw" alias="dim_publicacao">
+        </Table>
+        <Level name="Ano" visible="true" column="ano4" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Mes" visible="true" column="nome_mes" ordinalColumn="mes_numero" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="M&#234;s">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="sk_dt_ultima_liberacao" highCardinality="false" name="Data Ultima Liberacao" caption="Data &#218;ltima Libera&#231;&#227;o">
+      <Hierarchy name="Data Ultima Liberacao" visible="true" hasAll="true" allMemberName="Todos" primaryKey="sk_tempo" caption="Data &#218;ltima Libera&#231;&#227;o">
+        <Table name="dim_tempo" schema="dw" alias="dim_Ultima_Liberacao">
+        </Table>
+        <Level name="Ano" visible="true" column="ano4" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Mes" visible="true" column="nome_mes" ordinalColumn="mes_numero" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="M&#234;s">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="sk_situacao" highCardinality="false" name="Situacao" caption="Situa&#231;&#227;o">
+      <Hierarchy name="Situacao" visible="true" hasAll="true" allMemberName="Todos" primaryKey="sk_situacao" caption="Situa&#231;&#227;o">
+        <Table name="dim_situacao" schema="dw" alias="dim_situacao">
+        </Table>
+        <Level name="Situacao" visible="true" column="situacao" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Situa&#231;&#227;o">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Objeto Convenio">
+      <Hierarchy name="Objeto Convenio" visible="true" hasAll="true">
+        <Level name="Objeto Convenio" visible="true" column="dd_obj_convenio" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never" caption="Objeto Conv&#234;nio">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Valor do Convenio" column="m_valor_convenio" datatype="Numeric" formatString="###,###,###" aggregator="sum" caption="Valor do Conv&#234;nio" visible="true">
+    </Measure>
+    <Measure name="Dias Contrato" column="m_tempo_contrato_dias" datatype="Integer" formatString="#" aggregator="distinct-count" caption="Dias Contrato" visible="true">
+    </Measure>
+    <Measure name="Media Dias Contrato" column="m_tempo_contrato_dias" datatype="Integer" formatString="#" aggregator="avg" caption="M&#233;dia de dias de contrato" visible="true">
+    </Measure>
+    <Measure name="Valor Ultima Liberacao" column="m_valor_ult_liberacao" datatype="Numeric" formatString="###,###,###" aggregator="sum" caption="Valor &#218;ltima Libera&#231;&#227;o" visible="true">
+    </Measure>
+    <Measure name="Valor Contrapartida" column="m_valor_contrapartida" datatype="Numeric" formatString="###,###,###" aggregator="sum" caption="Valor Contrapartida" visible="true">
+    </Measure>
+    <Measure name="Valor Liberado" column="m_valor_liberado" datatype="Numeric" formatString="###,###,###" aggregator="sum" caption="Valor Liberado" visible="true">
+    </Measure>
+    <CalculatedMember name="Cor dias Contrato" formula="([Measures].[Dias Contrato]+0)" dimension="Measures" visible="false">
+      <CalculatedMemberProperty name="FORMAT_STRING" expression="Iif(([Measures].[Dias Contrato]-0) &#60;=30, &#39;|#,###|style=green&#39;, &#39;|#,###|style=red&#39;)">
+      </CalculatedMemberProperty>
+    </CalculatedMember>
+  </Cube>
+</Schema>

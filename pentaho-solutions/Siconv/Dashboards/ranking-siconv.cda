@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CDADescriptor>
+   <DataSources>
+      <Connection id="chart01Query" type="mondrian.jndi">
+         <Catalog>/Siconv/Analises/siconv.xml</Catalog>
+         <Jndi>siconv</Jndi>
+      </Connection>
+      <Connection id="tableQuery" type="mondrian.jndi">
+         <Catalog>/Siconv/Analises/siconv.xml</Catalog>
+         <Jndi>siconv</Jndi>
+      </Connection>
+      <Connection id="fimvigenciaFilterQuery" type="mondrian.jndi">
+         <Catalog>/Siconv/Analises/siconv.xml</Catalog>
+         <Jndi>siconv</Jndi>
+      </Connection>
+   </DataSources>
+   <DataAccess access="public" cache="true" cacheDuration="3600" connection="chart01Query"
+               id="chart01Query"
+               type="mdx">
+      <BandedMode>compact</BandedMode>
+      <Columns/>
+      <Parameters>
+         <Parameter default="fimvigenciaFilterParameter" name="fimvigenciaFilterParameter"
+                    type="String"/>
+      </Parameters>
+      <Query>select NON EMPTY {[Measures].[Valor do Convenio]} ON COLUMNS,
+  NON EMPTY Order({[Situacao].[ADIMPLENTE], [Situacao].[AGUARDANDO PRESTAÇÃO DE CONTAS], [Situacao].[CANCELADO], [Situacao].[CONCLUÍDO], [Situacao].[EM EXECUÇÃO], [Situacao].[EXCLUÍDO], [Situacao].[INADIMPLENTE], [Situacao].[INADIMPLÊNCIA SUSPENSA], [Situacao].[PRESTAÇÃO DE CONTAS APROVADA], [Situacao].[PRESTAÇÃO DE CONTAS APROVADA COM RESSALVAS], [Situacao].[PRESTAÇÃO DE CONTAS EM ANÁLISE], [Situacao].[PRESTAÇÃO DE CONTAS EM COMPLEMENTAÇÃO], [Situacao].[PRESTAÇÃO DE CONTAS ENVIADA PARA ANÁLISE], [Situacao].[PRESTAÇÃO DE CONTAS REJEITADA], [Situacao].[SEM INFORMAÇÃO]}, [Measures].[Valor do Convenio], DESC) ON ROWS
+from [Convenios]
+where {Hierarchize({${fimvigenciaFilterParameter}})}</Query>
+   </DataAccess>
+   <DataAccess access="public" cache="true" cacheDuration="3600" connection="tableQuery"
+               id="tableQuery"
+               type="mdx">
+      <BandedMode>compact</BandedMode>
+      <Columns/>
+      <Parameters>
+         <Parameter default="fimvigenciaFilterParameter" name="fimvigenciaFilterParameter"
+                    type="String"/>
+      </Parameters>
+      <Query>with member [Measures].[Percentual dos Convenios] as '([Measures].[Valor do Convenio] / [Estado].[Todos])', FORMAT_STRING = "Percent"
+select NON EMPTY {[Measures].[Valor do Convenio], [Measures].[Media Dias Contrato], [Measures].[Valor Ultima Liberacao], [Measures].[Valor Contrapartida], [Measures].[Valor Liberado], [Measures].[Percentual dos Convenios]} ON COLUMNS,
+  NON EMPTY Order({[Estado].[Todos], [Estado].[SAO PAULO], [Estado].[RIO DE JANEIRO], [Estado].[PERNAMBUCO], [Estado].[MINAS GERAIS], [Estado].[BAHIA], [Estado].[CEARA], [Estado].[RIO GRANDE DO SUL], [Estado].[MARANHAO], [Estado].[ALAGOAS], [Estado].[PARANA], [Estado].[MATO GROSSO], [Estado].[MATO GROSSO DO SUL], [Estado].[DISTRITO FEDERAL], [Estado].[ACRE], [Estado].[PIAUI], [Estado].[GOIAS], [Estado].[PARA], [Estado].[SANTA CATARINA], [Estado].[PARAIBA], [Estado].[RIO GRANDE DO NORTE], [Estado].[AMAZONAS], [Estado].[RORAIMA], [Estado].[SERGIPE], [Estado].[TOCANTINS], [Estado].[RONDONIA], [Estado].[ESPIRITO SANTO], [Estado].[AMAPA], [Estado].[EXTERIOR]}, [Measures].[Percentual dos Convenios], DESC) ON ROWS
+from [Convenios]
+where {${fimvigenciaFilterParameter}}</Query>
+   </DataAccess>
+   <DataAccess access="public" cache="true" cacheDuration="3600"
+               connection="fimvigenciaFilterQuery"
+               id="fimvigenciaFilterQuery"
+               type="mdx">
+      <BandedMode>compact</BandedMode>
+      <Columns/>
+      <Output indexes="1,0" mode="include"/>
+      <Parameters/>
+      <Query>with member [Measures].[Name] as '[Data Fim Vigencia].CurrentMember.UniqueName' select TopCount( filter({Descendants([Data Fim Vigencia].[Todos] ,[Data Fim Vigencia].[Ano])}, not isempty(([Data Fim Vigencia].CurrentMember)) ) , 50) on ROWS, 
+ {[Measures].[Name]} on Columns 
+ from [Convenios]</Query>
+   </DataAccess>
+</CDADescriptor>

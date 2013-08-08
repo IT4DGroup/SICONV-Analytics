@@ -25,4 +25,11 @@ git add SICONV-Analytics/
 git commit -m "SICONV v1.1 ETLs - Data Mart Convenios"
 
 git push -u origin master
+
+Selects
+select count(*) from dw.fato_convenios_siconv
+return was 450463
+
+select count(sk_concedente) from dw.fato_convenios_siconv
+return was 450463
   

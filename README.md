@@ -13,6 +13,13 @@ cd /Library/PostgreSQL/9.2/bin
 
 ./pg_restore -i -h localhost -p localhost -p 5432 -U postgres -d siconv -v "/Users/caiomsouza/siconv/postgresql9.2-dw-siconv.backup"
 
+
+Restore postgresql9.2-dw-siconv.backup on Windows
+
+C:\Program Files\PostgreSQL\9.2\bin>psql -d siconv -U postgres < "c:\Users\curso
+\Desktop\Curso Pentaho Dashboards\SICONV-Analytics-master\postgresql9.2-dw-siconv.backup"
+
+
 create backup
 
 pg_dump -i -h localhost -p 5432 -U postgres -F c -b -v -f 

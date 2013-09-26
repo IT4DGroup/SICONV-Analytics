@@ -1,3 +1,8 @@
+create schema dw;
+
+create schema ods;
+
+
 CREATE TABLE ods.ods_siconv
 (
   Numero_do_convenio BIGINT

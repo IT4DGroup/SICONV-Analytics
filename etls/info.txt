@@ -72,7 +72,7 @@ return was 450463
 select count(sk_concedente) from dw.fato_convenios_siconv
 return was 450463
 
-Example:
+Example (without log file):
 
 caiomsouza:data-integration caiomsouza$ ./pan.sh -file=/Users/caiomsouza/git/bitbucket/etls-bsb-dez13/SICONV/tr_load_siconv_csv.ktr -level=Basic
 2013/12/03 10:46:28 - Pan - Logging is at level : Basic logging
@@ -110,6 +110,10 @@ caiomsouza:data-integration caiomsouza$ ./pan.sh -file=/Users/caiomsouza/git/bit
 2013/12/03 10:47:27 - tr_load_siconv_csv - Step TOU - SICONV.0 ended successfully, processed 450463 lines. ( 7766 lines/s)
 caiomsouza:data-integration caiomsouza$ 
 
+Example (with log file):
+
+caiomsouza:data-integration caiomsouza$ ./pan.sh -file=/Users/caiomsouza/git/bitbucket/etls-bsb-dez13/SICONV/tr_load_siconv_csv.ktr -level=Basic >> /Users/caiomsouza/git/bitbucket/etls-bsb-dez13/logs/tr_load_siconv.log
+caiomsouza:data-integration caiomsouza$
 
 
   

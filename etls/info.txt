@@ -24,12 +24,38 @@ user=seu_usuario
 password=sua_senha_do_banco
 password=Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce
 
-Run a Job without write the log in a file
+Run a Job without write the log in a file (Unix / OSX)
 ./kitchen.sh -file=/Users/caiomsouza/git/it4dgroup/SICONV-Analytics/etls/job_dm_convenios_siconv.kjb -level=Basic
 
-
-Run a Job writing the log in a file
+Run a Job writing the log in a file (Unix / OSX)
 ./kitchen.sh -file=/Users/caiomsouza/git/it4dgroup/SICONV-Analytics/etls/job_dm_convenios_siconv.kjb -level=Basic >> /Users/caiomsouza/git/it4dgroup/SICONV-Analytics/job.log  
+
+Windows example
+Run a transformation
+pan.bat /file:C:\PRD\trans.ktr /level:Basic > C:\LOG\trans.log
+
+Run a job
+kitchen.bat /file:C:\PRD\runAll.kjb /level:Basic > C:\LOG\trans.log
+
+Pan User Guide
+http://wiki.pentaho.com/display/EAI/Pan+User+Documentation
+
+Kitchen User Guide
+http://wiki.pentaho.com/display/EAI/Kitchen+User+Documentation
+
+Set the logging level
+-level=Logging Level
+The level option sets the log level for the job that's being run.
+These are the possible values:
+
+Error: Only show errors
+Nothing: Don't show any output
+Minimal: Only use minimal logging
+Basic: This is the default basic logging level
+Detailed: Give detailed logging output
+Debug: For debugging purposes, very detailed output.
+Rowlevel: Logging at a row level, this can generate a lot of data.
+
 
 Git commands:
 

@@ -71,4 +71,45 @@ return was 450463
 
 select count(sk_concedente) from dw.fato_convenios_siconv
 return was 450463
+
+Example:
+
+caiomsouza:data-integration caiomsouza$ ./pan.sh -file=/Users/caiomsouza/git/bitbucket/etls-bsb-dez13/SICONV/tr_load_siconv_csv.ktr -level=Basic
+2013/12/03 10:46:28 - Pan - Logging is at level : Basic logging
+2013/12/03 10:46:28 - Pan - Start of run.
+2013/12/03 10:46:28 - tr_load_siconv_csv - Dispatching started for transformation [tr_load_siconv_csv]
+2013/12/03 10:46:28 - TOU - SICONV.0 - Connected to database [siconv-dw] (commit=1000)
+2013/12/03 10:46:28 - Load Convenios.csv.0 - Opening file: file:///Users/caiomsouza/git/bitbucket/etls-bsb-dez13/files/Convenios.csv
+2013/12/03 10:46:34 - Load Convenios.csv.0 - linenr 50000
+2013/12/03 10:46:36 - TOU - SICONV.0 - linenr 50000
+2013/12/03 10:46:41 - Load Convenios.csv.0 - linenr 100000
+2013/12/03 10:46:43 - TOU - SICONV.0 - linenr 100000
+2013/12/03 10:46:46 - Load Convenios.csv.0 - linenr 150000
+2013/12/03 10:46:50 - TOU - SICONV.0 - linenr 150000
+2013/12/03 10:46:53 - Load Convenios.csv.0 - linenr 200000
+2013/12/03 10:46:55 - TOU - SICONV.0 - linenr 200000
+2013/12/03 10:46:59 - Load Convenios.csv.0 - linenr 250000
+2013/12/03 10:47:02 - TOU - SICONV.0 - linenr 250000
+2013/12/03 10:47:06 - Load Convenios.csv.0 - linenr 300000
+2013/12/03 10:47:08 - TOU - SICONV.0 - linenr 300000
+2013/12/03 10:47:12 - Load Convenios.csv.0 - linenr 350000
+2013/12/03 10:47:14 - TOU - SICONV.0 - linenr 350000
+2013/12/03 10:47:19 - Load Convenios.csv.0 - linenr 400000
+2013/12/03 10:47:21 - TOU - SICONV.0 - linenr 400000
+2013/12/03 10:47:25 - Load Convenios.csv.0 - linenr 450000
+2013/12/03 10:47:25 - Load Convenios.csv.0 - Finished processing (I=450464, O=0, R=0, W=450463, U=1, E=0)
+2013/12/03 10:47:26 - Upper in some Strings.0 - Finished processing (I=0, O=0, R=450463, W=450463, U=0, E=0)
+2013/12/03 10:47:27 - TOU - SICONV.0 - linenr 450000
+2013/12/03 10:47:27 - TOU - SICONV.0 - Finished processing (I=0, O=450463, R=450463, W=450463, U=0, E=0)
+2013/12/03 10:47:27 - Pan - Finished!
+2013/12/03 10:47:27 - Pan - Start=2013/12/03 10:46:28.121, Stop=2013/12/03 10:47:27.111
+2013/12/03 10:47:27 - Pan - Processing ended after 58 seconds.
+2013/12/03 10:47:27 - tr_load_siconv_csv -  
+2013/12/03 10:47:27 - tr_load_siconv_csv - Step Load Convenios.csv.0 ended successfully, processed 450463 lines. ( 7766 lines/s)
+2013/12/03 10:47:27 - tr_load_siconv_csv - Step Upper in some Strings.0 ended successfully, processed 450463 lines. ( 7766 lines/s)
+2013/12/03 10:47:27 - tr_load_siconv_csv - Step TOU - SICONV.0 ended successfully, processed 450463 lines. ( 7766 lines/s)
+caiomsouza:data-integration caiomsouza$ 
+
+
+
   
